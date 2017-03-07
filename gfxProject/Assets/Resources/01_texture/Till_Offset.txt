@@ -1,0 +1,30 @@
+_MainTex 纹理
+_MainTex_ST float4 (x,y,z,w) 其中x，y是titling的xy zw是offset xy
+input.tex.xy 像素所对应的纹理坐标
+tex2D(_MainTex, _MainTex_ST.xy * input.tex.xy + _MainTex_ST.zw);
+这个纹理采样的uv坐标就是 title缩放 * 每隔像素的uv坐标 加 偏移。 
+
+问：
+（1) TRANSFORM_TEX是做什么的
+（2）float4 _MainTex_ST 中的_MainTex_ST变量也没有用到，为啥非要声明一下？
+
+答：
+(1)简单来说，TRANSFORM_TEX主要作用是拿顶点的uv去和材质球的tiling和offset作运算， 确保材质球里的缩放和偏移设置是正确的。 （v.texcoord就是顶点的uv）
+ 
+
+下面这两个函数是等价的。
+o.uv =   TRANSFORM_TEX(v.texcoord,_MainTex);
+ 
+o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+(2)而_MainTex_ST的ST是应该是SamplerTexture的意思 ，就是声明_MainTex是一张采样图，也就是会进行UV运算。  如果没有这句话，是不能进行TRANSFORM_TEX的运算的。
+
+
+Tiling表示UV坐标的缩放倍数，Offset表示UV坐标的起始位置。
+_MainTex_ST.xy为 下图中的Tiling,   zw为下图中的offset.
+如果Tiling 和Offset你留的是默认值，即Tiling为（1，1） Offset为（0，0）的时候，可以不用
+o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
+换成o.uv = v.texcoord.xy;也是能正常显示的；相当于Tiling 为（1，1）Offset为（0，0），但是如下图自己填的Tiling值和Offset值就不起作用了
+
+参考：http://www.cnblogs.com/beeasy/p/6517628.html
+
+
