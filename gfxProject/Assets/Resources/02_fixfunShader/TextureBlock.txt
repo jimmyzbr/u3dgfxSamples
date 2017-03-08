@@ -1,0 +1,19 @@
+Syntax
+SetTexture [TextureName] {Texture Block}
+Assigns a texture. TextureName must be defined as a texture property. How to apply the texture is defined inside the TextureBlock.
+The texture block controls how the texture is applied. Inside the texture block can be up to three commands: combine, matrix and constantColor.
+Texture block combine command
+combine src1 * src2: Multiplies src1 and src2 together. The result will be darker than either input.
+combine src1 + src2: Adds src1 and src2 together. The result will be lighter than either input.
+combine src1 - src2: Subtracts src2 from src1.
+combine src1 +- src2: Adds src1 to src2, then subtracts 0.5 (a signed add).
+combine src1 lerp (src2) src3: Interpolates between src3 and src1, using the alpha of src2. Note that the interpolation is opposite direction: src1 is used when alpha is one, and src3 is used when alpha is zero.
+combine src1 * src2 + src3: Multiplies src1 with the alpha component of src2, then adds src3.
+combine src1 * src2 +- src3: Multiplies src1 with the alpha component of src2, then does a signed add with src3.
+combine src1 * src2 - src3: Multiplies src1 with the alpha component of src2, then subtracts src3.
+All the src properties can be either one of previous, constant, primary or texture. 
+Previous is the the result of the previous SetTexture.
+
+Primary is the color from the lighting calculation or the vertex color if it is bound.
+Texture is the color of the texture specified by TextureName in the SetTexture (see above).
+Constant is the color specified in ConstantColor.
