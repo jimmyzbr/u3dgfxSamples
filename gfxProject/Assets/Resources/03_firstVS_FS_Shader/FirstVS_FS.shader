@@ -9,12 +9,13 @@ Shader "Custom/FirstVS_FS" {
 		Pass {
 		
 		CGPROGRAM
-		#pragma vertex Vert
-		#pragma fragment Frag 
+		#pragma vertex Vert		//声明顶点着色器
+		#pragma fragment Frag 	//声明片段着色器
 
 		#include "UnityCG.cginc"
-		float4 _MainColor;
-		sampler2D _MainTex;
+		
+		float4 _MainColor;		//自定义的颜色
+		sampler2D _MainTex;		//声明贴图采样器
 	
 		float4 _MainTex_ST;  //声明对应采样信息包括tilling 和 offset   
 							//_MainTex_ST 命名必须和 _MainTex ("Base (RGB)", 2D) = "white" {} 一直，不然无法获取到til和offset
@@ -22,9 +23,20 @@ Shader "Custom/FirstVS_FS" {
 		//定义顶点结构体
 		struct v2f
 		{
-			float4 pos:SV_POSITION;
-			float2 uv:TEXCOORD0; 
+			float4 pos:SV_POSITION;		//顶点位置
+			float2 uv:TEXCOORD0; 		//一级纹理坐标
 		};
+
+		/*
+		struct appdata_base {
+    	float4 vertex : POSITION;
+   		float3 normal : NORMAL;
+    	float4 texcoord : TEXCOORD0;
+		};
+		裁剪空间的范围是[-1,1],也就是在经过MVP矩阵后，o.pos.x/ o.pos.w 以及o.pos.y/ o.pos.w 的范围都是[-1,1] 故可以将裁剪空间坐标转换为 相对屏幕位置的uv坐标,如下
+		o.uv = float2(( o.pos.x/o.pos.w+1)*0.5,(o.pos.y/o.pos.w+1)*0.5);
+
+		*/
 		
 		//vertex Shader
 		v2f Vert( appdata_base  v)
@@ -32,6 +44,7 @@ Shader "Custom/FirstVS_FS" {
 			v2f o;
 			o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //使用MVP矩阵变换顶点坐标
 			o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);  //根据材质的tilling和Offset计算最终的顶点uv
+			//o.uv = float2(( o.pos.x/o.pos.w+1)*0.5,(o.pos.y/o.pos.w+1)*0.5);
 			return o; //返回这个顶点结构给fragment shader使用
 		}
 
@@ -39,8 +52,7 @@ Shader "Custom/FirstVS_FS" {
 		float4 Frag(v2f inVert) : COLOR
 		{
 			float4 texCol = tex2D(_MainTex,inVert.uv);  //采样得到纹素颜色
-			//float4 rgb = float4(1,0,0,1);
-			texCol = texCol * _MainColor;
+			texCol = texCol * _MainColor; //乘上附加颜色
 			return texCol;
 		} 
 
