@@ -50,6 +50,8 @@ Shader "Custom/BlendTest" {
 								 //依然是0；而且混合的目标（即背景）的颜色乘以Zero,也是0，所以透明部分的颜色相加(0 + 0 = 0 )最终也是0，所以显示为（0，0，0）黑色
 			
 			Blend SrcAlpha One   //高亮融合
+			ZWrite Off			//渲染透明物体，一定要关闭深度缓存的写入 并且渲染顺序由后往前渲染
+			
 			CGPROGRAM
 			#pragma vertex Vert
 			#pragma fragment Frag
