@@ -14,7 +14,7 @@
 
 
 
-Shader "Custom/SpcularVertexLighting" {
+Shader "Custom/BlinnPhongLighting" {
 	Properties {
 		_Diffuse("Diffuse",Color  ) = (1,1,1,1)   //漫反射光颜色
 		_Specular("Specular",Color ) = (1,1,1,1)  //高光反射颜色

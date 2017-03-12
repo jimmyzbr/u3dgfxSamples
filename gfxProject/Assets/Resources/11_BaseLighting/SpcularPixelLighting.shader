@@ -6,7 +6,7 @@
 // ViewDir ：视角方向 Refact: 反射方向
 
 
-Shader "Custom/SpcularVertexLighting" {
+Shader "Custom/SpcularPixelLighting" {
 	Properties {
 		_Diffuse("Diffuse",Color  ) = (1,1,1,1)   //漫反射光颜色
 		_Specular("Specular",Color ) = (1,1,1,1)  //高光反射颜色
