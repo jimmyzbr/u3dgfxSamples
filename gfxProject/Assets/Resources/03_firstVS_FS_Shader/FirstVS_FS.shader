@@ -23,7 +23,7 @@ Shader "Custom/FirstVS_FS" {
 		//定义顶点结构体
 		struct v2f
 		{
-			float4 pos:SV_POSITION;		//顶点位置
+			float4 pos:SV_POSITION;		//顶点位置（告诉unity顶点着色器的输出是裁减空间的顶点坐标）
 			float2 uv:TEXCOORD0; 		//一级纹理坐标
 		};
 

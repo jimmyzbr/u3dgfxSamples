@@ -50,7 +50,8 @@ Shader "Custom/XRayEffect" {
 			}
 
 			//fs
-			float4 Frag(V2F inVert):COLOR
+			float4 Frag(V2F inVert):SV_Target   //SV_Target:是HLSL中的一个系统语义，
+												//告诉渲染器把这个函数的输出颜色存储到一个渲染目标中。
 			{
 				float4 texCol = _BlockColor;//= tex2D(_MainTex,inVert.uv);
 				return texCol;
