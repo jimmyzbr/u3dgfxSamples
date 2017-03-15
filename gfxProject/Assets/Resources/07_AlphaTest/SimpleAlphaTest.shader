@@ -23,8 +23,11 @@ Shader "Custom/SimpleAlphaTest" {
 	SubShader {
 		Pass
 		{
-			AlphaTest GEqual [_Range]  //大于=0.5测试通过,草的alpha大于0.5所以会被渲染，其余显示透明
-            
+			//指定渲染类  和渲染队列
+			Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
+
+			//AlphaTest GEqual [_Range]  //大于=0.5测试通过,草的alpha大于0.5所以会被渲染，其余显示透明
+            Blend SrcAlpha OneMinusSrcAlpha  //直接开启混合
 			Material {
                 Diffuse (1,1,1,1)
                 Ambient (1,1,1,1)
