@@ -11,7 +11,7 @@ Shader "Custom/06Cube_2" {
 
 		//设置渲染队列,在所有非透明物体渲染之后进行渲染
 		
-		Tags {"Queue"="Geometry+1"} //最后渲染啦
+		Tags {"Queue"="Geometry+1"} //最后渲染啦,越靠近摄像机，深度值越小，在默认情况下，越容易测试通过
 		//Tags{ "Queue" = "Geometry-2"} //最先渲染，怪物和它的重叠部分会测试通过（怪物深度大于使用这个shader的Cube）,所以怪物会显示在它前面
 		pass{
 		//默认开启ZWrite ZTest为小于等于通过
