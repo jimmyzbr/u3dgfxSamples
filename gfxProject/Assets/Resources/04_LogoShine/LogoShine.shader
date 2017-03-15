@@ -50,7 +50,7 @@
 
 				float2 uv = v.uv;   //使用MainTex的uv
 				uv.x *= 0.5;
-				uv.x -= _Time.x * 15;
+				uv.x += _Time.x * 15;
 				//获取流光的颜色
 				fixed flow = tex2D(_FlowTex,uv).a;   //alpha值来自灰度图 并且FlowTex的像素格式是alpha8
 				col.rgb = texCol.rgb + fixed3(flow,flow,flow);
