@@ -1,4 +1,6 @@
-﻿//这是一个基于逐顶点的漫反射光照模型中漫反射光的计算
+﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
+//这是一个基于逐顶点的漫反射光照模型中漫反射光的计算
 //光照模型中漫反射部分计算公式：
 // Cdiff = (CLight * Mdiffuse) * max(0,VertexNormal * LightDir)
 // Mdiffuse : 材质的漫反射颜色
@@ -52,7 +54,7 @@ Shader "Custom/DiffuseVertexLighting" {
 
 				//把法线由模型空间变换到世界坐标系中 _World2Object是模型空间到世界空间的逆矩阵（世界到模型）
 				//法线变换的矩阵求法： 使用顶点变换矩阵的逆矩阵的转置矩阵。
-				fixed3 normalWorld = normalize(mul(v.normal,(float3x3)_World2Object));  //这里变换了一下方向，节省了求转置矩阵
+				fixed3 normalWorld = normalize(mul(v.normal,(float3x3)unity_WorldToObject));  //这里变换了一下方向，节省了求转置矩阵
 
 				//计算漫反射部分(max(0,dot(normalWorld,lightDirWorld)表示散射因子 需要控制在0到1之间)
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * max(0,dot(normalWorld,lightDirWorld));

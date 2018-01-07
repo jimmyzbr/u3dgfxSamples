@@ -1,4 +1,7 @@
-﻿//在BlinnPhong光照模型中贴图的基本使用，使用纹理代替物体的漫反射颜色
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
+//在BlinnPhong光照模型中贴图的基本使用，使用纹理代替物体的漫反射颜色
 //BlinnPhong光照模型高光的计算
 // 在Phong的基础上引入新的向量h,h = 视角方向view 和光照方向L 相加后再归一化
 // 
@@ -58,11 +61,11 @@ Shader "Custom/BlinnPhongBaseTexture" {
 				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);				//计算顶点在裁减空间中的位置
 				//把法线从本地坐标系转到世界坐标系中
 				 //_World2Object:由世界坐标系变换到物体本地坐标系	
-				o.normalWorld = normalize(mul(v.normal,(float3x3)_World2Object));  //或则直接使用内置变量
+				o.normalWorld = normalize(mul(v.normal,(float3x3)unity_WorldToObject));  //或则直接使用内置变量
 				//o.normalWorld = UnityObjectToWorldNormal(v.normal);
 				
 				//计算世界坐标系中的顶点坐标
-				o.posWorld = mul(_Object2World,v.vertex);
+				o.posWorld = mul(unity_ObjectToWorld,v.vertex);
 				//计算纹理坐标
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
 				return o;

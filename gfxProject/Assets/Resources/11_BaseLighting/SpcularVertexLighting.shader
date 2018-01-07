@@ -1,4 +1,7 @@
-﻿//一个基于逐顶点的漫反射和高光的光照模型的计算
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
+//一个基于逐顶点的漫反射和高光的光照模型的计算
 // 高光的计算：
 // Cspc = (ColorLight * Mtlspc) max(0, ViewDir * Reflact)
 // Cspc = pow(Cspc,Mglass)
@@ -56,7 +59,7 @@ Shader "Custom/SpcularVertexLighting" {
 
 				// 2. 计算漫反射光
 				//把法线从本地坐标系转到世界坐标系中
-				float3 normalWorld = normalize(mul(v.normal,(float3x3)_World2Object));  //_World2Object:由世界坐标系变换到物体本地坐标系
+				float3 normalWorld = normalize(mul(v.normal,(float3x3)unity_WorldToObject));  //_World2Object:由世界坐标系变换到物体本地坐标系
 				float3 lightDirWorld = normalize(_WorldSpaceLightPos0.xyz);		//计算世界坐标系下的光照方向
 
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * max(0,dot(normalWorld,lightDirWorld));
@@ -66,7 +69,7 @@ Shader "Custom/SpcularVertexLighting" {
 				//所以等于-lightDirWorld
 				float3 reflectDir = normalize(reflect(-lightDirWorld,normalWorld));
 				//计算世界坐标系下摄像机的视角 (摄像机的坐标 - 顶点的坐标，都是在世界坐标系下)
-				float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - mul(_Object2World,v.vertex).xyz);
+				float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - mul(unity_ObjectToWorld,v.vertex).xyz);
 				fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0,dot(reflectDir,viewDir)),_Gloss);
 
 				o.color = ambient + diffuse + specular;
