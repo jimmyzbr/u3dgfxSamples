@@ -45,8 +45,12 @@ Shader "Custom/UVAnim" {
 			o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //使用MVP矩阵变换顶点坐标
 			o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);  //根据材质的tilling和Offset计算最终的顶点uv
 			
-			float _u = o.uv.x + _Time * 10;  //U横向移动 放在vs中效率比fs中高
-			float _v = o.uv.y;
+			//_Time	float4	t 是自该场景加载开始所经过的时间，4个分量分别是 (t/20, t, t*2, t*3)
+			//fixed x= Speed * _Time;  等价于 fixed x= Speed * _Time.x;
+
+
+			float _u = o.uv.x + _Time.x * 10;  //U横向移动 放在vs中效率比fs中高
+			float _v = o.uv.y + _Time.x * 5;
 			o.uv = float2(_u,_v);
 			return o; //返回这个顶点结构给fragment shader使用
 		}
