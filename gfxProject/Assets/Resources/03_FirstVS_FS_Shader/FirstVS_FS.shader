@@ -30,14 +30,15 @@ Shader "Custom/FirstVS_FS" {
 		};
 
 		/*
-		struct appdata_base {
-    	float4 vertex : POSITION;
-   		float3 normal : NORMAL;
-    	float4 texcoord : TEXCOORD0;
-		};
-		裁剪空间的范围是[-1,1],也就是在经过MVP矩阵后，o.pos.x/ o.pos.w 以及o.pos.y/ o.pos.w 的范围都是[-1,1] 故可以将裁剪空间坐标转换为 相对屏幕位置的uv坐标,如下
-		o.uv = float2(( o.pos.x/o.pos.w+1)*0.5,(o.pos.y/o.pos.w+1)*0.5);
-
+            appdata_base 
+            结构如下
+            struct appdata_base {
+            float4 vertex : POSITION;
+            float3 normal : NORMAL;
+            float4 texcoord : TEXCOORD0;
+            };
+            裁剪空间的范围是[-1,1],也就是在经过MVP矩阵后，o.pos.x/ o.pos.w 以及o.pos.y/ o.pos.w 的范围都是[-1,1] 故可以将裁剪空间坐标转换为 相对屏幕位置的uv坐标,如下
+            o.uv = float2(( o.pos.x/o.pos.w+1)*0.5,(o.pos.y/o.pos.w+1)*0.5);
 		*/
 		
 		//vertex Shader
