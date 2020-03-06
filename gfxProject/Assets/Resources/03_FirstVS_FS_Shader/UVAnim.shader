@@ -1,4 +1,6 @@
-﻿//一个最简单的Vertex Shader 和 PixelShader
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//一个最简单的Vertex Shader 和 PixelShader
 //添加uv动画 其中贴图寻找模式必须是Repeat
 Shader "Custom/UVAnim" {
 	Properties {
@@ -42,7 +44,7 @@ Shader "Custom/UVAnim" {
 		v2f Vert( appdata_base  v)
 		{
 			v2f o;
-			o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //使用MVP矩阵变换顶点坐标
+			o.pos = UnityObjectToClipPos(v.vertex);  //使用MVP矩阵变换顶点坐标
 			o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);  //根据材质的tilling和Offset计算最终的顶点uv
 			
 			//_Time	float4	t 是自该场景加载开始所经过的时间，4个分量分别是 (t/20, t, t*2, t*3)

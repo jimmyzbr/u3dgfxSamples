@@ -1,4 +1,6 @@
-﻿//对比06Cube.Shader 展示RenderQueue对渲染顺序的影响
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//对比06Cube.Shader 展示RenderQueue对渲染顺序的影响
 //Queue值越小越先进行渲染，值越大，越后进行渲染
 
 Shader "Custom/06Cube_2" {
@@ -35,7 +37,7 @@ Shader "Custom/06Cube_2" {
 		v2f Vert(appdata_base v)
 		{
 			v2f o;
-			o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//使用mvp矩阵变换顶点，计算顶点坐标
+			o.pos = UnityObjectToClipPos(v.vertex);		//使用mvp矩阵变换顶点，计算顶点坐标
 			return o;
 		}
 

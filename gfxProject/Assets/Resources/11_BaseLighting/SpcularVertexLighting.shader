@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //一个基于逐顶点的漫反射和高光的光照模型的计算
@@ -51,7 +53,7 @@ Shader "Custom/SpcularVertexLighting" {
 			V2F Vert(A2V v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);				//计算顶点在裁减空间中的位置
+				o.pos = UnityObjectToClipPos(v.vertex);				//计算顶点在裁减空间中的位置
 				
 
 				// 1. 计算环境光

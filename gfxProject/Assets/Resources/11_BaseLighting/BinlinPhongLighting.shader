@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //一个基于逐像素的漫反射和高光的光照模型的计算(BlinnPhong光照模型)
@@ -61,7 +63,7 @@ Shader "Custom/BlinnPhongLighting" {
 			V2F Vert(A2V v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);				//计算顶点在裁减空间中的位置
+				o.pos = UnityObjectToClipPos(v.vertex);				//计算顶点在裁减空间中的位置
 				//把法线从本地坐标系转到世界坐标系中
 				o.normalWorld = normalize(mul(v.normal,(float3x3)unity_WorldToObject));  //_World2Object:由世界坐标系变换到物体本地坐标系	
 				//计算世界坐标系中的顶点坐标

@@ -102,9 +102,7 @@ public class FOWEffect : MonoBehaviour
 		{
 			RuntimePlatform pl = Application.platform;
 
-			if (pl == RuntimePlatform.WindowsEditor ||
-				pl == RuntimePlatform.WindowsPlayer ||
-				pl == RuntimePlatform.WindowsWebPlayer)
+			if (pl == RuntimePlatform.WindowsEditor || pl == RuntimePlatform.WindowsPlayer )
 			{
 				camPos.w = 1f;
 			}

@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Image Effects/Fog of War"
 {
 	Properties
@@ -42,7 +44,7 @@ struct Input
 
 void vert (inout appdata_full v, out Input o)
 {
-	o.position = mul(UNITY_MATRIX_MVP, v.vertex);
+	o.position = UnityObjectToClipPos(v.vertex);
 	o.uv = v.texcoord.xy;
 }
 

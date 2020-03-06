@@ -1,4 +1,6 @@
-﻿//类似火炬之光角色被障碍物遮挡之后,遮挡部分显示半透明效果的实现
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//类似火炬之光角色被障碍物遮挡之后,遮挡部分显示半透明效果的实现
 //实现方法：渲染两遍，自然就要用到两个pass,一个pass渲染被遮挡后的效果，
 //另外一个pass渲染正常效果。渲染被遮挡的效果，要把被遮挡物体（怪）渲染在
 //阻挡物体前面，将深度测试改为ZTest Greater，再启用alpha混合（不是必须）
@@ -44,7 +46,7 @@ Shader "Custom/XRayEffect" {
 			V2F Vert(appdata_base v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
 				return o;
 			}
@@ -85,7 +87,7 @@ Shader "Custom/XRayEffect" {
 			V2F Vert(appdata_base v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
 				return o;
 			}

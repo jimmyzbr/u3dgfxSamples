@@ -1,4 +1,6 @@
-﻿//一个最简单的Vertex Shader 和 PixelShader
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//一个最简单的Vertex Shader 和 PixelShader
 
 Shader "Custom/FirstVS_FS" {
 	Properties {
@@ -42,7 +44,8 @@ Shader "Custom/FirstVS_FS" {
 		v2f Vert( appdata_base  v)
 		{
 			v2f o;
-			o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //使用MVP矩阵变换顶点坐标
+			//o.pos = mul(UNITY_MATRIX_MVP,v.vertex)
+			o.pos = UnityObjectToClipPos(v.vertex);  //使用MVP矩阵变换顶点坐标 
 			o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);  //根据材质的tilling和Offset计算最终的顶点uv
 			//o.uv = float2(( o.pos.x/o.pos.w+1)*0.5,(o.pos.y/o.pos.w+1)*0.5);
 			return o; //返回这个顶点结构给fragment shader使用

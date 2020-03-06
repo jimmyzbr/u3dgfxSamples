@@ -1,4 +1,6 @@
-﻿//简单的后处理shader 用于调整平面 亮度 饱和度 对比度
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//简单的后处理shader 用于调整平面 亮度 饱和度 对比度
 
 Shader "Custom/Brightness" {
 	Properties {
@@ -44,7 +46,7 @@ Shader "Custom/Brightness" {
 			V2F Vert(appdata_img v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);   //顶点变换
+				o.pos = UnityObjectToClipPos(v.vertex);   //顶点变换
 				o.uv = v.texcoord;							//纹理坐标变换
 				return o;
 			}

@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //这是一个基于逐顶点的漫反射光照模型中漫反射光的计算
 //光照模型中漫反射部分计算公式：
@@ -43,7 +45,7 @@ Shader "Custom/DiffuseVertexLighting" {
 			V2F Vert(A2V v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //计算顶点位置（将顶点由模型空间变换到到裁减空间中）
+				o.pos = UnityObjectToClipPos(v.vertex);  //计算顶点位置（将顶点由模型空间变换到到裁减空间中）
 				
 				//通过内置变量得到环境光部分
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;	

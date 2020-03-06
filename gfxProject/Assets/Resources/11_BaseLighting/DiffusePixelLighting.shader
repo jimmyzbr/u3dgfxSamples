@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //这是一个基于逐像素的漫反射光照模型中漫反射光的计算
 //光照模型中漫反射部分计算公式：
@@ -45,7 +47,7 @@ Shader "Custom/DiffusePixelLighting" {
 			V2F Vert(A2V v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);  //计算顶点位置（将顶点由模型空间变换到到裁减空间中）
+				o.pos = UnityObjectToClipPos(v.vertex);  //计算顶点位置（将顶点由模型空间变换到到裁减空间中）
 
 				//把法线由模型空间变换到世界坐标系中 _World2Object是模型空间到世界空间的逆矩阵（世界到模型）
 				//法线变换的矩阵求法： 使用顶点变换矩阵的逆矩阵的转置矩阵。

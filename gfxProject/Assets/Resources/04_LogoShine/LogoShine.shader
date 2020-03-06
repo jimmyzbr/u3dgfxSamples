@@ -1,4 +1,6 @@
-﻿Shader "Custom/LogoShine" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/LogoShine" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}  //原始图
 		_FlowTex("Flow ",2D) = "white" {}		  //流光图（warpmode = repeat）
@@ -37,7 +39,7 @@
 			v2f Vert( appdata_base  v) 
 			{
 				v2f o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);  //根据材质的tilling和Offset计算最终的顶点uv
 				o.uv_flow = TRANSFORM_TEX(v.texcoord,_FlowTex);
 				return  o;

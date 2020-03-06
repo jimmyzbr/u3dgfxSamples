@@ -1,4 +1,6 @@
-﻿//
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//
 // 空间变换：把一个向量从坐标空间A变换到坐标空间B, 并且已知坐标空间B的X,Y，Z轴在空间A中的表示（Xb，Yb,Zb）
 // 那么从A到B的变换矩阵M = 把（Xb，Yb,Zb）按照“行”来放置构成一个变换矩阵。
 //=============================================================================================================
@@ -65,7 +67,7 @@ Shader "Custom/NormalMapTangentSpace" {
 			V2F Vert(A2V v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex); //顶点在裁减空间的位置
+				o.pos = UnityObjectToClipPos(v.vertex); //顶点在裁减空间的位置
 				
 				//分别计算颜色贴图和法线贴图的uv坐标 一般来说它们使用的是同一组坐标，计算一个就可以了。
 				o.uv.xy = TRANSFORM_TEX(v.texcoord,_MainTex); //diffuse贴图的纹理坐标

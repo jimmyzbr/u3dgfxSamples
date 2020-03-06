@@ -1,4 +1,6 @@
-﻿//使用多Pass和背面剔除、以及Alpha Blend创建一个双面材质
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//使用多Pass和背面剔除、以及Alpha Blend创建一个双面材质
 
 Shader "Custom/TwoSideTranparent" {
 	Properties {
@@ -34,7 +36,7 @@ Shader "Custom/TwoSideTranparent" {
 			V2F Vert(appdata_base v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//使用mvp矩阵变换顶点坐标
+				o.pos = UnityObjectToClipPos(v.vertex);		//使用mvp矩阵变换顶点坐标
 				return o;
 			}
 			//fs
@@ -68,7 +70,7 @@ Shader "Custom/TwoSideTranparent" {
 			V2F Vert(appdata_base v)
 			{
 				V2F o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);		//使用mvp矩阵变换顶点坐标
+				o.pos = UnityObjectToClipPos(v.vertex);		//使用mvp矩阵变换顶点坐标
 				return o;
 			}
 			//fs

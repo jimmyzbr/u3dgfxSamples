@@ -1,4 +1,6 @@
-﻿//使用RenderToTexture实现镜子的效果
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//使用RenderToTexture实现镜子的效果
 //1.为了得到从镜子出发观察到的场景图形，需要再创建一个摄像机，调整它的朝向位置使它拍到的图形
 //是我们希望镜子中应该呈现的图形，再创建一个RenderTexture,把它赋值给刚刚创建的摄像机的TargetTexture
 //这样摄像机不需要再渲染到屏幕缓冲区上，直接渲染到RenderTexture上。
@@ -36,7 +38,7 @@ Shader "Custom/Mirror" {
 			v2f Vert(a2v v)
 			{
 				v2f o;
-				o.pos = mul(UNITY_MATRIX_MVP,v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.texcoord,_MainTex);
 				//翻转纹理的u坐标 因为镜子里图形是左右相反的
 				o.uv.x = 1.0 - o.uv.x;
